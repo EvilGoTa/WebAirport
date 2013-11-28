@@ -11,18 +11,23 @@ package entities;
  * @author Роман
  */
 public class Race {
-    Integer start_city, end_city;
+    Integer id, start_city, end_city;
     String start_time, end_time, city1, city2;
 
-    public Race(Integer start_city, Integer end_city, String start_time, String end_time, String city1, String city2) {
+    public Race(Integer start_city, Integer end_city, Integer id, String start_time, String end_time, String city1, String city2) {
         this.start_city = start_city;
         this.end_city = end_city;
+        this.id = id;
         this.start_time = start_time;
         this.end_time = end_time;
         this.city1 = city1;
         this.city2 = city2;
     }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+    
     public void setStart_city(Integer start_city) {
         this.start_city = start_city;
     }
@@ -69,6 +74,10 @@ public class Race {
 
     public String getCity2() {
         return city2;
+    }
+
+    public Integer getId() {
+        return id;
     }
     
 }
