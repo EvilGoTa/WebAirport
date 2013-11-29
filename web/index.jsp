@@ -39,8 +39,9 @@
         <script src="Scripts/jquery-ui.min.js" type="text/javascript"></script>
     </head>
     <body>
+        <a href="CitiesPage.jsp">Города</a>
         <h1>Рейсы аэропорта</h1>
-    </body>
+    
     Фильтр по городу назнвчения
     <select name="filter-city1" id="filter-city">
         <% for (City city : new CityAccess().getCities()) {%>
@@ -154,4 +155,5 @@
             </tr>
         </table>
     </div>
+                    </body>
 </html>

@@ -22,6 +22,7 @@
         </script>
     </head>
     <body>
+        <a href="index.jsp">Рейсы</a>
         <h1>Список городов</h1>
         <table >
             <tr>
