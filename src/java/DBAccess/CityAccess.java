@@ -51,7 +51,7 @@ public class CityAccess extends DBAccess{
         ArrayList<City> cities = new ArrayList();
         Connection connection = createConnection();
         Statement statement = connection.createStatement();
-        ResultSet set = statement.executeQuery("SELECT id, city FROM cities");
+        ResultSet set = statement.executeQuery("SELECT * FROM cities");
         while(set.next()){
             cities.add(new City(set.getInt("id"), set.getString("city")));
         }

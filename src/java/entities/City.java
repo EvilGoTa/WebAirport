@@ -28,11 +28,11 @@ public class City {
     }
 
     public Integer getId() {
-        return id;
+        return this.id;
     }
 
     public String getCity() {
-        return city;
+        return this.city;
     }
     
 }

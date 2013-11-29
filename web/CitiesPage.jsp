@@ -13,6 +13,13 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; UTF-8">
         <title>Список городов</title>
+        <script type="text/javascript">
+            function goEdit(editId, editCity) {
+                document.getElementById("id_edit").value = editId;
+                document.getElementById("city_edit").value = editCity;
+                document.getElementById("edit-form").style.display = "block";
+            }
+        </script>
     </head>
     <body>
         <h1>Список городов</h1>
@@ -37,10 +44,10 @@
                 
             <% for (City city : new CityAccess().getCities()) { %>
             <tr>
-                <td>[<% city.getId(); %>]</td>
-                <td>[<% city.getCity(); %>]</td>
+                <td><%= city.getId() %></td>
+                <td><%= city.getCity() %></td>
                 <td>
-                    <button >
+                    <button onclick="goEdit(<%= city.getId() %>, '<%= city.getCity() %>');">
                         Редактировать
                     </button>
                 </td>
@@ -55,5 +62,22 @@
             </tr>
             <% } %>
         </table>
+        
+        <div id="edit-form" style="display: none;">
+            <h2>Редактирование</h2>
+            <form action="EditCity" method="POST">
+                <input type="hidden" name="id_edit" id="id_edit" value="" />
+                <table>
+                    <tr>
+                        <td>Город</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td><input type="text" name="city_edit" id="city_edit" /></td>
+                        <td><button>Редактировать</button></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
     </body>
 </html>

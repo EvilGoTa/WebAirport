@@ -21,7 +21,7 @@ import java.util.List;
 public class RaceAccess extends DBAccess{
     public void addRace(Race race) throws SQLException {
         Connection connection = createConnection();
-        PreparedStatement statement = connection.prepareStatement("INSERT INTO race "
+        PreparedStatement statement = connection.prepareStatement("INSERT INTO races "
                 + "(city_start, city_end, time_start, time_end) "
                 + "VALUES(?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
         statement.setInt(1, race.getStart_city());
@@ -34,7 +34,7 @@ public class RaceAccess extends DBAccess{
     
     public void editRace(Race race) throws SQLException {
         Connection connection = createConnection();
-        PreparedStatement statement = connection.prepareStatement("UPDATE race "
+        PreparedStatement statement = connection.prepareStatement("UPDATE races "
                 + "SET city_start = ?, city_end = ?, time_start = ?, time_end = ? "
                 + "WHERE id = ?", Statement.RETURN_GENERATED_KEYS);
         statement.setInt(1, race.getStart_city());
@@ -48,7 +48,7 @@ public class RaceAccess extends DBAccess{
     
     public void deleteRace(Race race) throws SQLException {
         Connection connection = createConnection();
-        PreparedStatement statement = connection.prepareStatement("DELETE FROM race WHERE Id = ?");
+        PreparedStatement statement = connection.prepareStatement("DELETE FROM races WHERE Id = ?");
         statement.setInt(1, race.getId());
         statement.executeUpdate();
         connection.close();
@@ -58,15 +58,15 @@ public class RaceAccess extends DBAccess{
         List<Race> races = new ArrayList();
         Connection connection = createConnection();
         Statement statement = connection.createStatement();
-        ResultSet set = statement.executeQuery("SELECT r.id city_start, c1.city, city_end, c2.city, time_start, time_end "
-                + "FROM reces r"
-                + "LEFT JOIN cities c1 on c1.id=city_start "
-                + "LEFT JOIN cities c2 on c2.id=city_end "
-                + "ORFER BY r.id");
+        ResultSet set = statement.executeQuery("SELECT r.id, city_start, c1.city city1, city_end, c2.city city2, time_start, time_end "
+                + "FROM races as r "
+                + "LEFT JOIN cities as c1 on c1.id = city_start "
+                + "LEFT JOIN cities as c2 on c2.id = city_end "
+                + "ORDER BY r.id");
         while(set.next()){
             races.add(new Race(set.getInt("city_start"), set.getInt("city_end"), 
-                    set.getInt("r.id"), set.getString("time_start"), set.getString("time_end"), 
-                    set.getString("c1.city"), set.getString("c2.city")));
+                    set.getInt("id"), set.getString("time_start"), set.getString("time_end"), 
+                    set.getString("city1"), set.getString("city2")));
         }
         return races;
     }
