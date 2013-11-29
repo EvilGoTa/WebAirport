@@ -34,34 +34,49 @@
                 document.getElementById("edit-form").style.display = "block";
             }
         </script>
+        <script src="Scripts/ajax.js" type="text/javascript"></script>
+        <script src="Scripts/jquery.js" type="text/javascript"></script>
+        <script src="Scripts/jquery-ui.min.js" type="text/javascript"></script>
     </head>
     <body>
         <h1>Рейсы аэропорта</h1>
     </body>
-    <table>
-        <tr>
+    Фильтр по городу назнвчения
+    <select name="filter-city1" id="filter-city">
+        <% for (City city : new CityAccess().getCities()) {%>
+        <option value="<%= city.getId()%>">
+            <%= city.getCity()%>
+        </option>
+        <% } %>
+    </select>
+    <button onclick="getRaces()">
+        Фильтровать
+    </button>
+    <table id="races">
+        <thead>
             <td>Город отправления</td>
             <td>Город прибытия</td>
             <td>Время отрпавления</td>
             <td>Время прибытия</td>
             <td colspan="2">Действия</td>
-        </tr>
-        <tr>
+        </thead>
+        <tbody>
+            <tr>
         <form action="AddRace" method="POST">
             <td>
                 <select name="add_city1" id="add_city1">
-                    <% for (City city : new CityAccess().getCities()) { %>
-                    <option value="<%= city.getId() %>">
-                        <%= city.getCity() %>
+                    <% for (City city : new CityAccess().getCities()) {%>
+                    <option value="<%= city.getId()%>">
+                        <%= city.getCity()%>
                     </option>
                     <% } %>
                 </select>
             </td>
             <td>
                 <select name="add_city2" id="add_city2">
-                    <% for (City city : new CityAccess().getCities()) { %>
-                    <option value="<%= city.getId() %>">
-                        <%= city.getCity() %>
+                    <% for (City city : new CityAccess().getCities()) {%>
+                    <option value="<%= city.getId()%>">
+                        <%= city.getCity()%>
                     </option>
                     <% } %>
                 </select>
@@ -74,28 +89,29 @@
                 </button>
             </td>
         </form>
-        </tr>
-        <% for (Race race : new RaceAccess().getRaces()) { %>
-        <tr>
-            <td><%= race.getCity1() %></td>
-            <td><%= race.getCity2() %></td>
-            <td><%= race.getStart_time() %></td>
-            <td><%= race.getEnd_time() %></td>
-            <td>
-                <button onclick="goEdit(<%= race.getId() %>, '<%= race.getCity1() %>', '<%= race.getCity2() %>', '<%= race.getStart_time() %>', '<%= race.getEnd_time() %>')">
-                    Редактировать
-                </button>
-            </td>
-            <td>
-                <form action="DeleteRace" method="POST">
-                    <input type="hidden" value="<%= race.getId()%>" name="delete_id" />
-                    <button>
-                        Удалить
-                    </button>
-                </form>
-            </td>
-        </tr>
-        <% } %>
+</tr>
+<% for (Race race : new RaceAccess().getRaces()) {%>
+<tr>
+    <td><%= race.getCity1()%></td>
+    <td><%= race.getCity2()%></td>
+    <td><%= race.getStart_time()%></td>
+    <td><%= race.getEnd_time()%></td>
+    <td>
+        <button onclick="goEdit(<%= race.getId()%>, '<%= race.getCity1()%>', '<%= race.getCity2()%>', '<%= race.getStart_time()%>', '<%= race.getEnd_time()%>')">
+            Редактировать
+        </button>
+    </td>
+    <td>
+        <form action="DeleteRace" method="POST">
+            <input type="hidden" value="<%= race.getId()%>" name="delete_id" />
+            <button>
+                Удалить
+            </button>
+        </form>
+    </td>
+</tr>
+<% } %>
+</tbody>
     </table>
     <div id="edit-form" style="display: none;">
         <table>
