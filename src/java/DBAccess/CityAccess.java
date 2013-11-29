@@ -47,13 +47,16 @@ public class CityAccess extends DBAccess{
         connection.close();
     }
     
-    public List<City> getCities() throws SQLException{
-        List<City> cities = new ArrayList();
+    public ArrayList<City> getCities() throws SQLException{
+        ArrayList<City> cities = new ArrayList();
         Connection connection = createConnection();
         Statement statement = connection.createStatement();
         ResultSet set = statement.executeQuery("SELECT id, city FROM cities");
         while(set.next()){
             cities.add(new City(set.getInt("id"), set.getString("city")));
+        }
+        for (City c : cities) {
+            System.out.println(c.getId() + " " + c.getCity());
         }
         connection.close();
         return cities;
